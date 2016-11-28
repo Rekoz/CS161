@@ -1,0 +1,70 @@
+1.
+(a) {x\A, y\B, z\B}
+(b) Cannot unify.
+(c) {x\B, y\A}
+(d) {x\John, y\John}
+(e) Cannot unify.
+
+2.
+(a) (A x)(food(x) => eats(John,x))
+    food(Apples)
+    food(Chicken)
+    (A x)(eats(y,x) & ~killed(x) => food(x))
+    (A x)(killed(x) => ~alive(x))
+    eats(Bill,Peanuts) & alive(Bill)
+    (A x)(eats(Bill,x) => eats(Sue,x))
+(b) ~food(x) | likes(John,x) (1)
+  & food(Apples) (2)
+  & food(Chicken) (3)
+  & ~eats(y,x) | killed(x) | food(x) (4)
+  & ~killed(x) | ~alive(x) (5)
+  & eats(Bill,Peanuts) (6)
+  & alive(Bill) (7)
+  & ~eats(Bill,x) | eats(Sue,x) (8)
+(c) Inverse the query: ~likes(John,Peanuts) (9)
+    killed(Bill) | food(Peanuts) (10)=(4)&(6)
+    ~alive(Bill) | ~killed(Bill) (11)=(5)&(7)
+    ~killed(Bill) (12)=(11)&(5)
+    food(Peanuts) (13)=(12)&(10)
+    likes(John,Peanuts) (14)=(13)&(1)
+    False (1)&(9)
+(d) eats(Sue,Peanuts) (6)&(8)
+(e) We have three new first-order logics:
+    (A x)(~eats(y,x) => die(y))
+    (A y)(die(y) => ~alive(y))
+    alive(Bill)
+    Transforming to CNF:
+    eats(y,x) | die(y)
+  & ~die(y) | ~alive(y)
+  & alive(Bill)
+    Combining with other clauses, we get:
+    ~food(x) | likes(John,x) (1)
+  & food(Apples) (2)
+  & food(Chicken) (3)
+  & ~eats(y,x) | killed(y) | food(x) (4)
+  & ~killed(x) | ~alive(x) (5)
+  & eats(y,x) | die(y) (6)
+  & ~die(y) | ~alive(y) (7)
+  & alive(Bill) (8)
+  & ~eats(Bill,x) | eats(Sue,x) (9)
+  Resolution:
+    ~die(Bill) (10)=(7)&(8)
+    eats(Bill,x) (11)=(10)&(6)
+    killed(Bill) | food(x) (12)=(10)&(4)
+    ~killed(Bill) (13)=(8)&(5)
+    food(x) (14)=(12)&(13)
+    eats(Sue,x) (15)=(11)&(9)
+    {x\Apples} (2)&(14)
+    {x\Chicken} (3)&(14)
+  Therefore, Sue eats Apples and Chicken.
+
+3.
+graph1.txt with 3 colors: UNSATISFIABLE
+graph1.txt with 4 colors: SATISFIABLE
+
+The above two SAT instances tell us that graph1 can only be colored
+when the number of useable colors is larger than 3.
+A possible solution using 4 colors:
+((1)(-2)(-3)(-4)(-5)(6)(-7)(-8)(9)(-10)(-11)(-12)(-13)(-14)(-15)(16)(-17)(-18)(19)(-20)(-21)(22)(-23)(-24)(-25)(-26)(27)(-28))
+
+The minimum number of colors required to solve graph2.txt is 8.

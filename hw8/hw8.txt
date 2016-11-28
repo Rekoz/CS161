@@ -1,0 +1,39 @@
+1. Constraints:
+   The prior probability of having the disease: 0.009
+   The false positive for the test: 0.002
+   The false negative for the test: 0.006
+
+2. The most likely instantiation of all variables given that Sambot has sensed the lights to be on,
+   but has sensed no bark.
+   How: Enter query mode, set LightSensor = On and SoundSensor = Off, then run MPE computation.
+   Result: Battery = OK
+           SoundSensorHealth = OK
+           LightSensorHealth = OK
+           FamilyHome = No
+           OutdoorLight = On
+           HearableBarking = No
+           ExpectingGuests = No
+           DogOutside = Yes
+           DogBowelTrouble = Yes
+           DogBarking = No
+
+   The most likely instantiation of the sensors given that the family is home and no guests
+   are expected.
+   How: Enter query mode, set FamilyHome = Yes and ExpectingGuests = No, then run MPE computation.
+   Result: Battery = OK
+           SoundSensorHealth = OK
+           SoundSensor = Off
+           LightSensorHealth = OK
+           LightSensor = Off
+           OutdoorLight = Off
+           HearableBarking = No
+           DogOutside = Yes
+           DogBowelTrouble = Yes
+           DogBarking = No
+
+   The smallest set of variables Z in network such that the two sensors are independent
+   given Z: {FamilyHome, Battery}
+   Reason: both variables diverges into the sensors. Thus, the paths between LightSensor and
+   SoundSensor are cut. The two variables are d-separated.
+
+   The type of network constructed: Multiply-connected network.
